@@ -1,0 +1,24 @@
+-----------|Levantamento de Requisitos Mega Hack|-----------
+
+-------| Funcionalidades Base |-------
+*Usuarios e estabelecimentos poderam criar uma conta.
+*Estabelecimento poderam criar eventos.
+*Usuarios poderam pesquisar por eventos proximos da sua região.
+*Usuarios poderam marcar interesse em eventos.
+*Usuarios poderam dar uma avaliação com nota (de 0 a 5) e um comentario no evento.
+*Usuarios poderam confirmar sua presença em eventos.
+
+-------| Funcionalidades Extras |-------
+*Usuarios poderam adicionar como amigo outros usuarios.
+*Usuarios poderam favoritar estabelecimentos.
+*Usuarios poderam abrir um chat para conversar com amigos que tem interesse em eventos em comun.
+
+-------| Tecnologias e Ferramentas |-------
+*Backend com Node.
+*Frontend com React.
+*Mobile com React Native.
+Banco de dados MySQL.
+*Hospedagem do banco de dados com Azure, AWS ou GoogleCloud.
+*Tecnologia para geolocalização ???
+
+
