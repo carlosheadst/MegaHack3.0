@@ -6,7 +6,7 @@ import './style.css'
 import api from '../../services/api'
 export default function Profile(){
 
-    const[incidents,setIncidents] = useState([]);
+    const[events,setEvents] = useState([]);
 
     const ongId = localStorage.getItem('ongId')
     const ongName = localStorage.getItem('ongName')
@@ -19,7 +19,7 @@ export default function Profile(){
                 Authorization:ongId,
             }
         }).then(response => {
-            setIncidents(response.data);
+            setEvents(response.data);
         })
     },[ongId]);
 
@@ -31,7 +31,7 @@ export default function Profile(){
                 }    
             });
 
-            setIncidents(incidents.filter(incident=> incident.id!=id));
+            setEvents(events.filter(event=> event.id!=id));
         }catch(err){
             alert('Erro ao deletar caso, tente novamente')
         }
@@ -43,34 +43,35 @@ export default function Profile(){
     }
     return(
 
-     <div className="profile-container">
-         <header>
-            <img src={logoImg} alt="Be the Hero"/>
-            <span>Bem vindo(a), {ongName}</span>
-            <Link className='button'to='/incidents/new'>Cadastrar novo evento </Link>
-            <button onClick={handleLogout}type='button'>
-                <FiPower size={18} color="yellow"/>
+        <div className="profile-container">
+        <header>
+           <img src={logoImg} alt="Be the Hero"/>
+           <span>Bem vindo(a), {ongName}</span>
+           <Link className='button'to='/event/new'>Cadastrar novo evento </Link>
+           <button onClick={handleLogout}type='button'>
+               <FiPower size={18} color="yellow"/>
+           </button>
+        </header>
+        <h1>Eventos cadastrados</h1>
+        <ul>
+        {events.map(event =>(
+            <li key ={event.id}>
+            <strong>Evento</strong>
+           <p>{event.title}</p>
+
+            <strong>Descrição</strong>
+            <p>{event.description}</p>
+
+            <strong>Valor</strong>
+            <p>{Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(event.value)}</p>
+
+            <button onClick = {()=>handleDeleteInsident(event.id)}type='button'>
+               <FiTrash2 size={20} color="#a8a8b3"/>
             </button>
-         </header>
-         <h1>Eventos cadastrados</h1>
-         <ul>
-         {incidents.map(incident =>(
-             <li key ={incident.id}>
-             <strong>EVENTO</strong>
-            <p>{incident.title}</p>
-
-             <strong>DESCRIÇÃO</strong>
-             <p>{incident.description}</p>
-
-             <strong>VALOR</strong>
-             <p>{Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(incident.value)}</p>
-
-             <button onClick = {()=>handleDeleteInsident(incident.id)}type='button'>
-                <FiTrash2 size={20} color="#a8a8b3"/>
-             </button>
-         </li>
-         ))}
-         </ul>
-     </div>
-    );
+            <strong>Imagens do local</strong>
+        </li>
+        ))}
+        </ul>
+    </div>
+   );
 }
