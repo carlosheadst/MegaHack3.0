@@ -13,7 +13,7 @@ export default function Register(){
     const[cnpj, setCnpj] = useState('');
     const[senha, setSenha] = useState('');
 const history = useHistory();
-   async function handleRegister(e){
+    async function handleRegister(e){
         e.preventDefault();
 
        const data=({
