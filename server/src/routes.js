@@ -17,7 +17,7 @@ const eventoController = new EventoControler
 routes.get("/usuario", usuarioController.index)
 routes.post("/usuario", usuarioController.create)
 
-routes.get("/estabelecimento/:cnpj", estabelecimentoController.show)
+routes.get("/estabelecimento/logon/:cnpj/:senha", estabelecimentoController.logon)
 routes.get("/estabelecimento", estabelecimentoController.index)
 routes.post("/estabelecimento", estabelecimentoController.create)
 

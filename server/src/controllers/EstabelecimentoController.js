@@ -1,58 +1,70 @@
-const {randomBytes} = require('crypto')
+const { randomBytes } = require('crypto')
 const knex = require('../database/connection')
 
-class PointsController{
+class PointsController {
 
-    async index (request, response) {
+    async index(request, response) {
 
         const estabelecimentos = await knex('Estabelecimento').select('*')
 
         return response.json(estabelecimentos)
     }
 
-    async show (request, response) {
-        const { cnpj } = request.params
+    async logon(request, response) {
+        const { cnpj, senha } = request.params
 
-        const estabelecimento = await knex('Estabelecimento').where('cnpj_estabelecimento', cnpj)
+        var estabelecimento = null
 
-        if(!estabelecimento) {
-            return response.status(400).json({message: 'Estabelecimento não encontrado.'})
+        try {
+            estabelecimento = await knex('Estabelecimento').where({ 'cnpj': cnpj, 'senha': senha })
+        } catch (error) {
+            return response.json({
+                errorMessage: error.message
+            })
         }
-        
 
-        return response.json(estabelecimento)
+        return estabelecimento[0] != null ? response.json({ logar: true, estabelecimento: estabelecimento }) : response.json({ logar: false, estabelecimento: null })
     }
 
-    async create (request, response) {
+    async create(request, response) {
 
         const {
-            nome_estabelecimento,
-            cnpj_estabelecimento,
-            numero_estabelecimento,
-            email_estabelecimento,
-            local_estabelecimento,
+            nome,
+            cnpj,
+            numero,
+            email,
+            local,
             senha
         } = request.body
-    
+
         const trx = await knex.transaction()
 
         const estabelecimento = {
-            nome_estabelecimento,
-            cnpj_estabelecimento,
-            numero_estabelecimento,
-            email_estabelecimento,
-            local_estabelecimento,
+            nome,
+            cnpj,
+            numero,
+            email,
+            local,
             senha
         }
 
-        const insertedIds = await trx('Estabelecimento').insert(estabelecimento)
-    
-        const id_estabelecimento = insertedIds[0]
+        var insertedIds = null
+
+        try {
+            insertedIds = await trx('Estabelecimento').insert(estabelecimento)
+        }
+        catch (error) {
+            return response.json({
+                errorMessage: error.message
+            })
+        }
+
+        const id = insertedIds[0]
 
         await trx.commit()
-    
+
         return response.json({
-            id: id_estabelecimento,
+            id: id,
             ...estabelecimento,
         })
     }

@@ -5,7 +5,7 @@ const knex = require('knex')
      connection: {
         host : 'localhost',
         user : 'root',
-        password : '123456',
+        password : '',
         database : 'BrejaFinder'
       },
       useNullAsDefault: true
