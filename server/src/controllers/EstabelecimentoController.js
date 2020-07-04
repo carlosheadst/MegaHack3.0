@@ -14,16 +14,23 @@ class PointsController {
         const { cnpj, senha } = request.params
 
         var estabelecimento = null
+        var eventos = null
 
         try {
             estabelecimento = await knex('Estabelecimento').where({ 'cnpj': cnpj, 'senha': senha })
+            
+            if (estabelecimento[0] != null)
+                eventos = await knex('Evento').where('id_estabelecimento', estabelecimento[0].id)
+
         } catch (error) {
             return response.json({
                 errorMessage: error.message
             })
         }
 
-        return estabelecimento[0] != null ? response.json({ logar: true, estabelecimento: estabelecimento }) : response.json({ logar: false, estabelecimento: null })
+        return estabelecimento[0] != null ? 
+        response.json({ logar: true, estabelecimento: estabelecimento, eventos: eventos }) : 
+        response.json({ logar: false, estabelecimento: null, eventos: null })
     }
 
     async create(request, response) {
