@@ -1,7 +1,7 @@
 const {Request, Response} = require('express')
 const knex = require('../database/connection')
 
-class ItemsController{
+class EventoController{
     async index (request, response) {
 
         const eventos = await knex('Evento').select('*')
@@ -12,40 +12,52 @@ class ItemsController{
     async create (request, response) {
 
         const {
-            nome_evento,
-            descricao_evento,
-            local_evento,
+            nome,
+            descricao,
+            local,
             horario_inicio,
             horario_termino,
             valor_entrada,
-            fotos_evento,
             id_estabelecimento
         } = request.body
+
+        if (id_estabelecimento == null || id_estabelecimento == "")
+            return response.json({
+                errorMessage: "O id do estabelecimento não pode ser nulo"
+            })
     
         const trx = await knex.transaction()
 
         const eventos = {
-            nome_evento,
-            descricao_evento,
-            local_evento,
+            nome,
+            descricao,
+            local,
             horario_inicio,
             horario_termino,
             valor_entrada,
-            fotos_evento,
             id_estabelecimento
         }
 
-        const insertedIds = await trx('Evento').insert(eventos)
+        var insertedIds = null
+
+        try {
+            insertedIds = await trx('Evento').insert(eventos)
+        } catch (error) {
+            await trx.rollback()
+            return response.json({
+                errorMessage: error.message
+            })
+        }
     
-        const id_evento = insertedIds[0]
+        const id = insertedIds[0]
 
         await trx.commit()
     
         return response.json({
-            id: id_evento,
+            id: id,
             ...eventos,
         })
     }
 }
 
-module.exports = ItemsController
+module.exports = EventoController
