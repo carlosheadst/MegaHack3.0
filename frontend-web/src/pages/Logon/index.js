@@ -5,21 +5,23 @@ import './styles.css';
 import api from '../../services/api'
 import heroesImg from '../../Assets/heroes.png';
 import logoImg from '../../Assets/logo.png'
+import slogan from '../../Assets/slogan.png'
 
 
 export default function Logon(){
-    const [id, setId] = useState('');
-    const history=useHistory();
+    const [id, setId] = useState('')
+    const [cnpj_estabelecimento, setCNPJ] = useState('')
+    const [senha, setSenha] = useState('')
+    const history=useHistory()
 
     async function handleLogin(e){
         e.preventDefault();
 
         try{
-            const response = await api.post('session', {id});
-            console.log(response.data.name);
-            localStorage.setItem('ongId',id);
-            localStorage.setItem('ongName',response.data.name);
-            history.push('/profile')
+            const response = await api.get(`estabelecimento/${cnpj_estabelecimento}`, {cnpj_estabelecimento, senha})
+            console.log(response.data.cnpj)
+            console.log(response.data.senha)
+            // history.push('/profile')
         }
         catch(err){
             alert('falha no login tente novamente')
@@ -35,14 +37,16 @@ export default function Logon(){
                 <h1>Faça seu Logon</h1>
                 <input
                  placeholder="CNPJ do seu estabelecimento"
-                 value ={id}
-                 onChange={e=> setId(e.target.value)}
-
+                 value ={cnpj_estabelecimento}
+                 onChange={e => setCNPJ(e.target.value)}
                  />
+
                  <input
                  placeholder ="Senha"
-                 
+                 value ={senha}
+                 onChange={e => setSenha(e.target.value)}
                  />
+
                 <button className='button' type="submit">Entrar</button>
                 <Link className="back-link" to='/register'>
                     <FiLogIn size ={16} color="FFF"/>
@@ -50,8 +54,10 @@ export default function Logon(){
                 </Link>
                 </form>
             </section>
-          
-            <img src={heroesImg} alt="Heores"/>
+            <div>
+            <img className='cerveja' src={heroesImg} alt="Heroes"/>
+            <img className='slogan' src={slogan} alt="slogan"/>
+            </div>
         </div>
     );
 }

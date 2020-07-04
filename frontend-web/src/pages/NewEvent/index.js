@@ -6,7 +6,7 @@ import {FiArrowLeft} from 'react-icons/fi'
 import api from '../../services/api'
 
 
-export default function NewIncident(){
+export default function NewEvent(){
     const [titulo,setTitulo] = useState('');
     const [endereco,setEndereco] = useState('');
     const [descricao,setDescricao] = useState('');
@@ -24,7 +24,7 @@ export default function NewIncident(){
           
         };
         try{
-            await api.post('incidents',data,{
+            await api.post('events',data,{
                 headers:{
                     Authorization:ongid,
                 }
@@ -36,12 +36,12 @@ export default function NewIncident(){
     }
 
     return(
-    <div className="new-incident-container">
+    <div className="new-event-container">
     <div className="content">
         <section>
             <img src={logoImg} alt="Be The Hero"/>
             <h1>Cadastrar novo evento</h1>
-            <p>Descreva o evento detalhadamento para divulga-lo.</p>
+            <p>Descreva o evento detalhadamente para divulga-lo.</p>
             <Link className="back-link" to='/Profile'>
                 <FiArrowLeft size ={16} color="E02041"/>
                 <h3>Voltar para home</h3>

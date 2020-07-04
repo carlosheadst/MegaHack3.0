@@ -13,7 +13,7 @@ export default function Register(){
     const[cnpj, setCnpj] = useState('');
     const[senha, setSenha] = useState('');
 const history = useHistory();
-   async function handleRegister(e){
+    async function handleRegister(e){
         e.preventDefault();
 
        const data=({
@@ -29,7 +29,7 @@ const history = useHistory();
     <div className="register-container">
         <div className="content">
             <section>
-                <img src={logoImg} alt="Be The Hero"/>
+                <img src={logoImg} alt="Breja finder"/>
                 <h1>Cadastro</h1>
                 <p>Faça o cadastro do seu estabelecimento e divulgue seus eventos. </p>
                 <Link className="back-link" to='/' color="c41c27">

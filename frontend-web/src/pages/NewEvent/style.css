@@ -1,4 +1,4 @@
-.new-incident-container{
+.new-event-container{
     width: 100%;
     max-width: 1120px;
     height: 100vh;
@@ -9,7 +9,7 @@
     justify-content: center; 
 }
 
-.new-incident-container .content{
+.new-event-container .content{
     width: 100%;
     padding: 96px;
     background: #f0f0f5;
@@ -21,32 +21,32 @@
 
 }
 
-.new-incident-container section{
+.new-event-container section{
     width: 100%;
     max-width: 380px;
 }
 
-.new-incident-container section h1{
+.new-event-container section h1{
     margin: 64px 0 32px;
     font-size:32px;   
 }
 
-.new-incident-container section p{
+.new-event-container section p{
     font-size: 18px;
     color:#737380;
     line-height:32px ;
 }
 
-.new-incident-container  form{
+.new-event-container  form{
     max-width: 100%;
     max-width: 450px;
 }
 
-.new-incident-container  form input{
+.new-event-container  form input{
     margin-top: 8px;
     color:#737380;
 }
 
-.new-incident-container form textarea{
+.new-event-container form textarea{
     color:#737380;
 }
