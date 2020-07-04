@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import logoImg from '../../Assets/logo.png'
-import {Link,useHistory} from 'react-router-dom'
+import {Link,useHistory, useLocation} from 'react-router-dom'
 import {FiPower,FiTrash2} from 'react-icons/fi'
 import './style.css'
 import api from '../../services/api'
@@ -11,8 +11,10 @@ export default function Profile(){
     const ongId = localStorage.getItem('ongId')
     const ongName = localStorage.getItem('ongName')
     const history = useHistory();
-  
+    const location = useLocation()
    
+    console.log(location.state)
+
     useEffect(()=>{
         api.get('profile',{
             headers:{

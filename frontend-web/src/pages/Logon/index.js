@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FiLogIn} from 'react-icons/fi'
-import {Link,useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './styles.css';
 import api from '../../services/api'
 import heroesImg from '../../Assets/heroes.png';
@@ -9,23 +9,24 @@ import slogan from '../../Assets/slogan.png'
 
 
 export default function Logon(){
-    const [id, setId] = useState('')
-    const [cnpj_estabelecimento, setCNPJ] = useState('')
+    const [cnpj, setCNPJ] = useState('')
     const [senha, setSenha] = useState('')
-    const history=useHistory()
+    const history = useHistory()
 
     async function handleLogin(e){
-        e.preventDefault();
-
-        try{
-            const response = await api.get(`estabelecimento/${cnpj_estabelecimento}`, {cnpj_estabelecimento, senha})
-            console.log(response.data.cnpj)
-            console.log(response.data.senha)
-            // history.push('/profile')
-        }
-        catch(err){
-            alert('falha no login tente novamente')
-        }
+        e.preventDefault()
+        history.push('/profile', {sucesso: true})
+        // try{
+        //     const response = await api.get(`estabelecimento/logon/${cnpj}/${senha}`, {cnpj, senha})
+        //     if(response.logar) {
+        //         // history.push('/profile', response.estabelecimento)
+        //     } else {
+        //         alert("CNPJ ou senha incoretos")
+        //     }
+        // }
+        // catch(err){
+        //     alert('falha no login tente novamente')
+        // }
     }
 
     return(
@@ -37,7 +38,7 @@ export default function Logon(){
                 <h1>Faça seu Logon</h1>
                 <input
                  placeholder="CNPJ do seu estabelecimento"
-                 value ={cnpj_estabelecimento}
+                 value ={cnpj}
                  onChange={e => setCNPJ(e.target.value)}
                  />
 
