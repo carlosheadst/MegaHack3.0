@@ -5,6 +5,7 @@ import './styles.css';
 import api from '../../services/api'
 import heroesImg from '../../Assets/heroes.png';
 import logoImg from '../../Assets/logo.png'
+import slogan from '../../Assets/slogan.png'
 
 
 export default function Logon(){
@@ -53,8 +54,10 @@ export default function Logon(){
                 </Link>
                 </form>
             </section>
-          
-            <img src={heroesImg} alt="Heores"/>
+            <div>
+            <img className='cerveja' src={heroesImg} alt="Heroes"/>
+            <img className='slogan' src={slogan} alt="slogan"/>
+            </div>
         </div>
     );
 }
