@@ -14,11 +14,11 @@ export default function App() {
   
     return (
       //<Main/>
-      <Login/>
+      //<Login/>
       //<Load/>
       //<InfoEvent/>
       //<EventList/>
-      //<EventHistory/>
+      <EventHistory/>
     );
   
 }
