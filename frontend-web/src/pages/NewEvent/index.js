@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import {Link,useHistory} from 'react-router-dom'
+import React,{ useState, useEffect } from 'react'
+import {Link,useHistory, useLocation} from 'react-router-dom'
 import './style.css'
 import logoImg from '../../Assets/logo.png'
 import {FiArrowLeft} from 'react-icons/fi'
@@ -7,39 +7,46 @@ import api from '../../services/api'
 
 
 export default function NewEvent(){
-    const [titulo,setTitulo] = useState('');
-    const [endereco,setEndereco] = useState('');
-    const [descricao,setDescricao] = useState('');
-    const [valor,setValor] = useState('');
-    const ongid = localStorage.getItem('ongId');
+    const [nome,setNome] = useState('')
+    const [descricao,setDescricao] = useState('')
+    const [local,setLocal] = useState('')
+    const [horarioInicio, setHorarioInicio] = useState('')
+    const [horarioTermino, setHorarioTermino] = useState('')
+    const [valor,setValor] = useState(0)
+    const [idEstabelecimento, setIdEstabelecimento] = useState(0)
     const history = useHistory()
+    const location = useLocation()
 
-    async function handleNewIncident(e){
-        e.preventDefault();
+    async function handleNewEvent(e){
+        e.preventDefault()
         const data ={
-            titulo,
-            endereco,
+            nome,
             descricao,
+            local,
+            horarioInicio,
+            horarioTermino,
             valor,
-          
-        };
+            idEstabelecimento,
+        }
+
         try{
-            await api.post('events',data,{
-                headers:{
-                    Authorization:ongid,
-                }
-            })
-        history.push('/profile')
+            await api.post('evento', data)
+            history.push('/profile')
         } catch{
             alert('erro ao cadastrar caso, tente novamente')
         }
     }
 
+    useEffect(() => {
+        console.log(location.state)
+        setIdEstabelecimento(location.state)
+    }, [location])
+
     return(
     <div className="new-event-container">
     <div className="content">
         <section>
-            <img src={logoImg} alt="Be The Hero"/>
+            <img src={logoImg} alt="Breja Finder"/>
             <h1>Cadastrar novo evento</h1>
             <p>Descreva o evento detalhadamente para divulga-lo.</p>
             <Link className="back-link" to='/Profile'>
@@ -47,31 +54,47 @@ export default function NewEvent(){
                 <h3>Voltar para home</h3>
             </Link>
         </section>
-        <form onSubmit={handleNewIncident} >
+        <form onSubmit={handleNewEvent} >
+
             <input
-             placeholder ="Titulo do evento"
-             value={titulo}
-             onChange={e=>setTitulo(e.target.value)}
+             placeholder ="Nome do evento"
+             value={nome}
+             onChange={e => setNome(e.target.value)}
              />
+
              <input
              placeholder="Endereço do evento"
-             value={endereco}
-             onChange={e=>setEndereco(e.target.value)}
+             value={local}
+             onChange={e => setLocal(e.target.value)}
              />
+
             <textarea 
              placeholder="Descrição do evento"
              value={descricao}
-             onChange={e=>setDescricao(e.target.value)}
+             onChange={e => setDescricao(e.target.value)}
              />
+
+            <input 
+             placeholder="Horario Inicio"
+             value={horarioInicio}
+             onChange={e => setHorarioInicio(e.target.value)}
+             />
+
+            <input 
+             placeholder="Horario Termino"
+             value={horarioTermino}
+             onChange={e => setHorarioTermino(e.target.value)}
+             />
+
             <input
              placeholder="Valor da entrada"
              value={valor}
-             onChange={e=>setValor(e.target.value)}
+             onChange={e => setValor(e.target.value)}
              />
             
             <button className="button"type="submit">Cadastrar</button>
         </form>
     </div>
 </div>
-    )
+)
 }
