@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Image, View, Text, FlatList, TextInput, TouchableOpacity, Keyboard,StatusBar, } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import{useNavigation, useRoute} from '@react-navigation/native';
 
 
 import back from '../../../assets/baseline_keyboard_backspace_white_18dp.png';
@@ -10,17 +11,26 @@ const evento={
     name:"teste",
     value:15.00,
     description:"teste"
-}
-export default function Detail(){
-    
+};
 
+
+
+
+export default function Detail(){
+
+    const navigation = useNavigation();
+    const route = useRoute();
+    function navigateToBack() {
+        navigation.goBack();
+    };
+    
     return(
         <>
         <StatusBar backgroundColor="#c41c27"></StatusBar>
 
         <View style={styles.globalContainer}>
         <View style={styles.menuBar}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigateToBack()}>
         <Image style={styles.menuBarButton} source={back} size={45} color="#FFF"/>
         </TouchableOpacity>
         <Text style={styles.textMenuBar}>Historico de eventos</Text>
