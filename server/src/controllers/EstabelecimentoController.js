@@ -1,7 +1,7 @@
 const { randomBytes } = require('crypto')
 const knex = require('../database/connection')
 
-class PointsController {
+class EstabelecimentoController {
 
     async index(request, response) {
 
@@ -61,6 +61,7 @@ class PointsController {
             insertedIds = await trx('Estabelecimento').insert(estabelecimento)
         }
         catch (error) {
+            trx.rollback()
             return response.json({
                 errorMessage: error.message
             })
@@ -77,4 +78,4 @@ class PointsController {
     }
 }
 
-module.exports = PointsController
+module.exports = EstabelecimentoController
