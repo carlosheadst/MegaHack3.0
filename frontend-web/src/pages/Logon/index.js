@@ -15,18 +15,17 @@ export default function Logon(){
 
     async function handleLogin(e){
         e.preventDefault()
-        history.push('/profile', {sucesso: true})
-        // try{
-        //     const response = await api.get(`estabelecimento/logon/${cnpj}/${senha}`, {cnpj, senha})
-        //     if(response.logar) {
-        //         // history.push('/profile', response.estabelecimento)
-        //     } else {
-        //         alert("CNPJ ou senha incoretos")
-        //     }
-        // }
-        // catch(err){
-        //     alert('falha no login tente novamente')
-        // }
+        try{
+            const response = await api.get(`estabelecimento/logon/${cnpj}/${senha}`, {cnpj, senha})
+            if(response.data.logar) {
+                history.push('/profile', response.data)
+            } else {
+                alert("CNPJ ou senha incoretos")
+            }
+        }
+        catch(err){
+            alert('falha no login tente novamente')
+        }
     }
 
     return(
