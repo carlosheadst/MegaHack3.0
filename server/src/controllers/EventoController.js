@@ -12,26 +12,24 @@ class ItemsController{
     async create (request, response) {
 
         const {
-            nome_evento,
-            descricao_evento,
-            local_evento,
+            nome,
+            descricao,
+            local,
             horario_inicio,
             horario_termino,
             valor_entrada,
-            fotos_evento,
             id_estabelecimento
         } = request.body
     
         const trx = await knex.transaction()
 
         const eventos = {
-            nome_evento,
-            descricao_evento,
-            local_evento,
+            nome,
+            descricao,
+            local,
             horario_inicio,
             horario_termino,
             valor_entrada,
-            fotos_evento,
             id_estabelecimento
         }
 
