@@ -25,5 +25,6 @@ routes.post("/produto", produtoController.create)
 
 routes.get("/evento", eventoController.index)
 routes.post("/evento", eventoController.create)
+// routes.put("/evento", eventoController.update)
 
 module.exports = routes
