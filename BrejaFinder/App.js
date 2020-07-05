@@ -16,9 +16,9 @@ export default function App() {
       //<Main/>
       //<Login/>
       //<Load/>
-      //<InfoEvent/>
+      <InfoEvent/>
       //<EventList/>
-      <EventHistory/>
+      //<EventHistory/>
     );
   
 }
