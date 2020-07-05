@@ -14,14 +14,16 @@ export default function Profile(){
         setEvents(location.state.eventos)
     },[location])
 
-    async function handleDeleteInsident(id){
+    async function handleDeleteEvent(id){
         try{
             setEvents(events.filter(event => event.id !== id))
         }catch(err){
             alert('Erro ao deletar caso, tente novamente')
         }
     }
-
+    function handleNewEvent(){ 
+        history.push('/event/new',location.state.estabelecimento[0].id)
+    }
     function handleLogout(){
         localStorage.clear()
         history.push('/')
@@ -30,9 +32,9 @@ export default function Profile(){
 
         <div className="profile-container">
         <header>
-           <img src={logoImg} alt="Be the Hero"/>
+           <img src={logoImg} alt="Breja Finder"/>
            <span>Bem vindo(a), {location.state.estabelecimento[0].nome}</span>
-           <Link className='button'to='/event/new'>Cadastrar novo evento </Link>
+           <button className='button'onClick={handleNewEvent}>Cadastrar novo evento </button>
            <button onClick={handleLogout}type='button'>
                <FiPower size={18} color="yellow"/>
            </button>
@@ -50,7 +52,7 @@ export default function Profile(){
             <strong>Valor</strong>
             <p>{Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(event.valor_entrada)}</p>
 
-            <button onClick = {()=>handleDeleteInsident(event.id)}type='button'>
+            <button onClick = {()=>handleDeleteEvent(event.id)}type='button'>
                <FiTrash2 size={20} color="#a8a8b3"/>
             </button>
         </li>

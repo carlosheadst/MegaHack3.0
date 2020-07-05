@@ -6,10 +6,10 @@ import{FiArrowLeft} from 'react-icons/fi'
 import api from '../../services/api'
 
 export default function Register(){
-    const[name, setName] = useState('');
+    const[nome, setName] = useState('');
     const[email, setEmail] = useState('');
-    const[whatsapp, setWhatsapp] = useState('');
-    const[endereco, setEndereco] = useState('');
+    const[numero, setWhatsapp] = useState('');
+    const[local, setEndereco] = useState('');
     const[cnpj, setCnpj] = useState('');
     const[senha, setSenha] = useState('');
 const history = useHistory();
@@ -17,13 +17,21 @@ const history = useHistory();
         e.preventDefault();
 
        const data=({
-            name,
+            nome,
             email,
-            whatsapp,
-            endereco,
+            numero,
+            local,
             cnpj,
             senha
         })
+        try{
+            const response = await api.post('estabelecimento',data)
+            history.push('/')
+        }
+        catch(err){
+            alert('Erro no cadastro, tente novamente.')
+        }
+       
     }
     return(
     <div className="register-container">
@@ -41,7 +49,7 @@ const history = useHistory();
             <form onSubmit={handleRegister} >
                 <input 
                     placeholder ="Nome do estabelecimento"
-                    value={name}
+                    value={nome}
                     onChange={e => setName(e.target.value)}
                 />
                 <input 
@@ -52,13 +60,13 @@ const history = useHistory();
                 />
                 <input 
                     placeholder="Whatsapp"
-                    value={whatsapp}
+                    value={numero}
                     onChange={e => setWhatsapp(e.target.value)}
                 />
             <div className="input-group">
                 <input 
                     placeholder="Endereço"
-                    value={endereco}
+                    value={local}
                     onChange={e => setEndereco(e.target.value)}/>
                 <input 
                     placeholder="CNPJ"
