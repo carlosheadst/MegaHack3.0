@@ -96,14 +96,16 @@ contentInfo:{
  },
  contactContainer:{
     marginTop:5,
+    alignItems:'center',
+    justifyContent:'center',
     flexDirection:'row'
  },
  buttonContact:{
     backgroundColor:"#c41c27",
-    maxHeight:50,
-     minHeight:50,
-     maxWidth:70,
-     minWidth:70,
+    maxHeight:'50%',
+     minHeight:'50%',
+     maxWidth:'50%',
+     minWidth:'50%',
      marginRight:'15%',
      marginLeft:'15%',
      maxHeight:50,

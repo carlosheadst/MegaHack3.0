@@ -58,7 +58,6 @@ export default function Profile(){
             <button onClick = {()=>handleDeleteEvent(event.id)}type='button'>
                <FiTrash2 size={20} color="#a8a8b3"/>
             </button>
-            <strong>Imagens do local</strong>
         </li>
         ))}
         </ul>

@@ -1,5 +1,6 @@
-import React,{useEffect, useState} from 'react';  
+import React,{useEffect, useState, Component } from 'react';  
 import MapView,{ Marker, Callout } from 'react-native-maps'
+import{useNavigation, useRoute} from '@react-navigation/native';
 import {StyleSheet, Image, View, Text, TextInput, TouchableOpacity, Keyboard,StatusBar, } from 'react-native';
 import {requestPermissionsAsync, getCurrentPositionAsync} from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -7,6 +8,13 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import styles from './styles.js';
 
+
+closeDrawer = () => {
+    this.drawer._root.close()
+};
+openDrawer = () => {
+    this.drawer._root.open()
+};    
   
 export default function Detail(){
     const [currentRegion, setCurrentRegion]=useState(null);
@@ -35,6 +43,15 @@ export default function Detail(){
     if(!currentRegion){
         return null;
     }
+    const navigation=useNavigation();
+    const route = useRoute();
+
+    function navigateToScreen(){
+        navigation.navigate('Menu');
+    }
+    
+    
+
 
     return(
         
@@ -45,7 +62,7 @@ export default function Detail(){
 
         <View style={styles.globalContainer}>
         <View style={styles.menuBar}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigateToScreen()} >
         <MaterialIcons style={styles.menuBarButton} name="list" size={45} color="#FFF"/>
         </TouchableOpacity>
         <Text style={styles.textMenuBar}>BrejaFinder</Text>
